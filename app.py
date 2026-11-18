@@ -106,14 +106,36 @@ CSS = """
 [data-testid="stToast"] * { color:var(--text) !important; }
 
 /* ---------- barra de ferramentas (tema + limpar) ---------- */
-.st-key-toolbar [data-testid="stHorizontalBlock"], .st-key-chips [data-testid="stHorizontalBlock"] {
-  flex-wrap:wrap; gap:8px; justify-content:flex-end;
+.st-key-toolbar button {
+  transition:background-color .25s ease, color .25s ease, border-color .25s ease;
 }
-.st-key-chips [data-testid="stHorizontalBlock"] { justify-content:flex-start; gap:8px; }
-.st-key-toolbar [data-testid="stColumn"], .st-key-toolbar [data-testid="column"],
-.st-key-chips [data-testid="stColumn"], .st-key-chips [data-testid="column"] {
-  flex:0 0 auto !important; width:auto !important; min-width:0 !important;
+#MainMenu, footer, .stDeployButton { visibility:hidden; }
+[data-testid="stHeader"] { background:transparent; }
+[data-testid="stMainBlockContainer"], .block-container {
+  max-width:980px; padding-top:1.1rem; padding-bottom:6rem;
+  background:var(--sheet); border-left:1px solid var(--line); border-right:1px solid var(--line);
+  backdrop-filter:blur(6px); padding-left:2rem; padding-right:2rem;
 }
+
+/* ícones/setas do cabeçalho: sempre legíveis, nos dois temas */
+[data-testid="stHeader"] button, [data-testid="stExpandSidebarButton"], [data-testid="stSidebarCollapsedControl"] button,
+[data-testid="stHeader"] [data-testid="stIconMaterial"], [data-testid="stExpandSidebarButton"] *,
+[data-testid="stSidebarCollapsedControl"] * { color:var(--text) !important; fill:currentColor; }
+[data-testid="stSidebarCollapseButton"] *, [data-testid="stSidebarHeader"] button * { color:#C5D1E2 !important; fill:currentColor; }
+
+/* ---------- textos ---------- */
+.stApp h1, .stApp h2, .stApp h3, .stApp h4 { color:var(--head); }
+.stApp a { color:var(--link); }
+.stApp [data-testid="stMarkdownContainer"] :is(p, li, td, label, span) { color:var(--text); }
+[data-testid="stChatMessage"] [data-testid="stMarkdownContainer"] * { color:var(--text) !important; -webkit-text-fill-color:var(--text) !important; }
+[data-testid="stSpinner"], [data-testid="stSpinner"] * { color:var(--muted) !important; }
+[data-testid="stAlert"] { background:var(--alert-bg); border-radius:12px; }
+[data-testid="stAlert"] * { color:var(--alert-text) !important; }
+[data-testid="stCode"] pre, [data-testid="stCode"] code { background:var(--surface2) !important; color:var(--text) !important; }
+[data-testid="stToast"] { background:var(--surface); border:1px solid var(--line); border-radius:12px; }
+[data-testid="stToast"] * { color:var(--text) !important; }
+
+/* ---------- barra de ferramentas (tema + limpar) ---------- */
 .st-key-toolbar button {
   border-radius:999px; border:1px solid var(--line); background:var(--surface); color:var(--text);
   min-height:36px; padding:2px 14px; font-size:13px; font-weight:500; box-shadow:var(--shadow);
@@ -381,7 +403,7 @@ with st.sidebar:
                 '<code>carrinho</code> <code>remover 1</code> <code>limpar</code> <code>finalizar</code></div>',
                 unsafe_allow_html=True)
 
-    st.markdown(f'<div class="nx-foot"><b>NexaTech Informática</b><br>CotaIA · atendimento virtual · v1.2<br>'
+    st.markdown(f'<div class="nx-foot"><b>NexaTech Informática</b><br>CotaIA · atendimento virtual · v1.3<br>'
                 f'{int(bk.DESCONTO_PIX * 100)}% no PIX · proposta válida por {bk.VALIDADE_DIAS} dias</div>',
                 unsafe_allow_html=True)
 
@@ -394,15 +416,15 @@ if aviso:
     st.toast(aviso[0], icon=aviso[1])
 
 with st.container(key="toolbar"):
-    c_tema, c_limpar = st.columns(2)
+    _, c_tema, c_limpar = st.columns([5, 2.2, 2.4])
     if TEMA == "claro":
         c_tema.button("Modo noturno", key="tema_btn", icon=":material/dark_mode:", on_click=alternar_tema,
-                      help="Trocar para o tema noturno")
+                      help="Trocar para o tema noturno", use_container_width=True)
     else:
         c_tema.button("Modo claro", key="tema_btn", icon=":material/light_mode:", on_click=alternar_tema,
-                      help="Trocar para o tema claro")
+                      help="Trocar para o tema claro", use_container_width=True)
     c_limpar.button("Limpar conversa", key="limpar_btn", icon=":material/delete_sweep:", on_click=limpar_conversa,
-                    disabled=len(st.session_state.msgs) <= 1,
+                    disabled=len(st.session_state.msgs) <= 1, use_container_width=True,
                     help="Apaga o bate-papo. As cotações continuam salvas.")
 
 st.markdown(
@@ -434,7 +456,7 @@ def enviar(texto: str):
 with st.container(key="chips"):
     colunas = st.columns(len(ATALHOS))
     for col, (rotulo, texto) in zip(colunas, ATALHOS):
-        col.button(rotulo, key=f"atalho_{rotulo}", on_click=enviar, args=(texto,))
+        col.button(rotulo, key=f"atalho_{rotulo}", on_click=enviar, args=(texto,), use_container_width=True)
 
 st.write("")
 
