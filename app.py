@@ -97,7 +97,7 @@ CSS = """
 .stApp h1, .stApp h2, .stApp h3, .stApp h4 { color:var(--head); }
 .stApp a { color:var(--link); }
 .stApp [data-testid="stMarkdownContainer"] :is(p, li, td, label, span) { color:var(--text); }
-[data-testid="stChatMessage"] [data-testid="stMarkdownContainer"] * { color:var(--text); }
+[data-testid="stChatMessage"] [data-testid="stMarkdownContainer"] * { color:var(--text) !important; -webkit-text-fill-color:var(--text) !important; }
 [data-testid="stSpinner"], [data-testid="stSpinner"] * { color:var(--muted) !important; }
 [data-testid="stAlert"] { background:var(--alert-bg); border-radius:12px; }
 [data-testid="stAlert"] * { color:var(--alert-text) !important; }
@@ -121,7 +121,9 @@ CSS = """
 .st-key-toolbar button p { color:inherit !important; font-size:13px; }
 .st-key-toolbar button:hover { border-color:var(--blue); color:var(--blue); }
 .st-key-toolbar button:focus-visible { outline:2px solid var(--blue); outline-offset:2px; }
-.st-key-toolbar button:disabled { opacity:.7; color:var(--muted); }
+.st-key-toolbar button:disabled { opacity:.8; color:var(--muted) !important; }
+.st-key-toolbar button:disabled p { color:var(--muted) !important; -webkit-text-fill-color:var(--muted) !important; }
+.st-key-toolbar button p { -webkit-text-fill-color:currentColor !important; }
 .st-key-tema_btn [data-testid="stIconMaterial"] { color:var(--toggle-icon) !important; font-size:20px; }
 .st-key-limpar_btn [data-testid="stIconMaterial"] { color:var(--muted) !important; }
 
@@ -147,7 +149,7 @@ CSS = """
 [data-testid="stChatMessage"] { background:var(--surface); border:1px solid var(--line); border-radius:14px;
   padding:14px 18px; margin-bottom:12px; gap:14px; box-shadow:var(--shadow); }
 [data-testid="stChatMessage"] [data-testid="stMarkdownContainer"] :is(p, li) { font-size:15px; line-height:1.6; }
-[data-testid="stChatMessage"] [data-testid="stMarkdownContainer"] :is(strong, h1, h2, h3, h4, th) { color:var(--head); }
+[data-testid="stChatMessage"] [data-testid="stMarkdownContainer"] :is(strong, h1, h2, h3, h4, th) { color:var(--head) !important; -webkit-text-fill-color:var(--head) !important; }
 [data-testid="stChatMessage"] hr { border-color:var(--line); }
 
 [data-testid="stChatMessageAvatarAssistant"] { background:var(--avatar); }
@@ -159,7 +161,7 @@ CSS = """
 [data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-user"]) {
   background:var(--bubble); border-color:var(--bubble); flex-direction:row-reverse; margin-left:auto; max-width:80%; }
 [data-testid="stChatMessage"]:has([data-testid="stChatMessageAvatarUser"]) [data-testid="stMarkdownContainer"]  *,
-[data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-user"]) [data-testid="stMarkdownContainer"] * { color:#fff; }
+[data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-user"]) [data-testid="stMarkdownContainer"] * { color:#fff !important; -webkit-text-fill-color:#fff !important; }
 
 [data-testid="stChatMessage"] table { width:100%; display:block; overflow-x:auto; border-collapse:collapse;
   font-size:13.5px; margin:8px 0; }
@@ -167,7 +169,7 @@ CSS = """
   padding:8px 10px; border-bottom:1px solid var(--line); white-space:nowrap; }
 [data-testid="stChatMessage"] td { padding:9px 10px; border-bottom:1px solid var(--line); vertical-align:top;
   font-variant-numeric:tabular-nums; }
-[data-testid="stChatMessage"] [data-testid="stMarkdownContainer"] code { background:var(--surface2); color:var(--link); border-radius:5px; padding:1px 6px; font-size:12.5px; }
+[data-testid="stChatMessage"] [data-testid="stMarkdownContainer"] code { background:var(--surface2); color:var(--link) !important; -webkit-text-fill-color:var(--link) !important; border-radius:5px; padding:1px 6px; font-size:12.5px; }
 
 /* ---------- campo de mensagem ---------- */
 [data-testid="stBottom"], [data-testid="stBottom"] > div { background:transparent !important; }
@@ -379,7 +381,7 @@ with st.sidebar:
                 '<code>carrinho</code> <code>remover 1</code> <code>limpar</code> <code>finalizar</code></div>',
                 unsafe_allow_html=True)
 
-    st.markdown(f'<div class="nx-foot"><b>NexaTech Informática</b><br>CotaIA · atendimento virtual<br>'
+    st.markdown(f'<div class="nx-foot"><b>NexaTech Informática</b><br>CotaIA · atendimento virtual · v1.2<br>'
                 f'{int(bk.DESCONTO_PIX * 100)}% no PIX · proposta válida por {bk.VALIDADE_DIAS} dias</div>',
                 unsafe_allow_html=True)
 
