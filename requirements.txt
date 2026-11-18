@@ -1,0 +1,7 @@
+streamlit>=1.40
+sentence-transformers
+faiss-cpu
+openai
+reportlab
+pandas
+tzdata

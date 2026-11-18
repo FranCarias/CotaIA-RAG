@@ -1,0 +1,12 @@
+# Salve este arquivo como .streamlit/config.toml (dentro da pasta do projeto)
+[theme]
+base = "light"
+primaryColor = "#2457D6"
+backgroundColor = "#F3F6FB"
+secondaryBackgroundColor = "#FFFFFF"
+textColor = "#14202F"
+
+[client]
+# O tema claro/noturno agora é controlado pelo botão sol/lua do próprio app.
+# "minimal" esconde o menu de configurações do Streamlit para os dois não brigarem.
+toolbarMode = "minimal"
